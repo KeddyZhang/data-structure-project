@@ -1,0 +1,51 @@
+1. 
+def get_parent(i):
+    return -1 if (i==0) else (i-1)//2
+
+
+def get_left_child(i):
+    return i*2+1
+
+
+def get_right_child(i):
+    return i*2+2
+2. 
+class PriorityQueue:
+
+    def __init__(self):
+        self.head = None
+        self.size = 0
+
+    def insert(self, key):
+        node = Node(key)
+        self.size += 1
+        if self.head is None:
+            self.head = node
+        else:
+            cur, pre = self.head, None
+            while cur is not None:
+                if node.key < cur.key:
+                    break
+                cur, pre = cur.next, cur
+            if pre is None:
+                self.head = node
+            else:
+                pre.next = node
+            node.next = cur
+
+
+    def delMin(self):
+        if self.head is None:
+            return None
+        else:
+            self.size -= 1
+            res = self.head.key
+            self.head = self.head.next
+            return res
+
+3.the  time complexity of insert() is O(n),and the time complexity of delMinz() is O(1)
+
+4.because it is a simple performance benchmark,  we can time the execution of 1000 insertion and deletions on the priority queue. So that we can compare the time complexity of  insert() and delMin().The results can be displayed on a line graph, the time is on the y-axis and the  operations is on the x-axis.
+
+
+5.we can use the graphviz library to draw the tree structure corresponding to the linked based heap. Each nodes correspond to each element in the priority queue.it shows that the are in a relationship of child and parent.
